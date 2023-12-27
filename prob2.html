@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width: 600px;
+            height: 300px;
+            border: 1px solid black;
+            margin-left: 25%;
+            background-color: brown;
+            color: aliceblue;
+        }
+        h1{
+            text-align: center;
+        }
+        button{
+            width: 200px;
+            height: 30px;
+            margin-right: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-left: 50px;
+            background-color: chartreuse;
+        }
+       
+    </style>
+</head>
+<body>
+   <div id="container">
+        <h1>
+            Display  time
+        </h1>
+        <h1 id="display">00:00:00</h1>
+        <button id="start">start / stop</button><button id="reset">reset</button>
+   </div>
+    
+</body>
+<script>
+    let display=document.getElementById('display')
+    let btn1=document.getElementById('start')
+    let btn2=document.getElementById("reset")
+    let sec=0
+    let min=0
+    let hour=0
+    let timer
+
+    btn1.addEventListener("click",function(e){
+        e.preventDefault()
+        flase()
+    })
+    btn2.addEventListener("click",function(e){
+        e.preventDefault()
+        reset()
+    })
+
+    function start(){
+        sec++
+        if(sec==60){
+            sec=0
+            min++
+            if(min==60){
+                min=0
+                hour++
+                if(hour==60){
+                    hour=0
+                }
+            }
+        }
+        updateDisplay()
+
+    }
+   
+    function flase(){
+        
+        if(timer){
+            clearInterval(timer)
+            timer=null
+        }
+        else{
+            timer=setInterval(start,1000)
+        }
+    }
+
+   
+    function stop(){
+        clearInterval()
+    }
+    function reset(ele){
+       
+        location.reload()
+    }
+    function updateDisplay() {
+        display.textContent = formatTime(hour) + ":" + formatTime(min) + ":" + formatTime(sec)
+    }
+    function formatTime(time) {
+        return time < 10 ? "0" + time : time
+    }
+   
+</script>
+</html>
